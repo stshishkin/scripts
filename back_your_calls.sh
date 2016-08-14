@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#USAGE: ./0$ <clients_login>
+#`record_fname` field contains full path to call record
+
 UNAME=$1
 SRC_DIR="/home/cb_asterisk/trash/"
 DST_DIR="/home/cb_asterisk/include/clients/$UNAME/call_records"
