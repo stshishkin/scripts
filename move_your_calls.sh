@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# script for moving call-files from temporary directoty to astspooldir with a little overflow protection
+# USAGE: $0 <temp_dir> <astspooldir> <number_files>
+# example: $0 /tmp/calldir /var/spool/asterisk/outgoing 100
+
 SRC_DIR=$1
 DST_DIR=$2
 MAX_FILES=$3
