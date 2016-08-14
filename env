@@ -1,0 +1,4 @@
+#!/bin/bash
+export MYSQL_USER="real_mysql_user"
+export MYSQL_PASS="real_mysql_pass"
+export SIP_SRV="real_sip_server_ip"
