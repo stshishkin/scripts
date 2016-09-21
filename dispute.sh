@@ -105,9 +105,9 @@ example () {
 			BNUM=${2}_BNUM
 			DUR=${2}_DUR
 			if [[ ${!BNUM} -lt ${!DUR} ]];then
-				regexp=$(echo $line | sed -E "s/[^0-9]*([0-9]+);([0-9]+)[^0-9]*/${!DEL}\1(${!DEL})?.*${!DEL}\2${!DEL}/")
+				regexp=$(echo $line | sed -E "s/[^0-9]*([0-9]+);([0-9]+)[^0-9]*/(${!DEL})?\1(${!DEL})?.*${!DEL}\2(${!DEL})?/")
 			else
-				regexp=$(echo $line | sed -E "s/[^0-9]*([0-9]+);([0-9]+)[^0-9]*/${!DEL}\2(${!DEL})?.*${!DEL}\1${!DEL}/") 
+				regexp=$(echo $line | sed -E "s/[^0-9]*([0-9]+);([0-9]+)[^0-9]*/(${!DEL})?\2(${!DEL})?.*${!DEL}\1(${!DEL})?/") 
 			fi
 
 			grep -E "$regexp" ${!FILE}
