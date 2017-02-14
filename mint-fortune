@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+test_host='fucking-great-advice.ru'
+
+function show_fortune {
+    cowsay=$(type -p cowsay)
+    cows=( $($cowsay -l | cut -d: -f2) )
+    RANGE=${#cows[@]}
+    number=$RANDOM
+    let "number %= $RANGE"
+    cow=${cows[$number]}
+
+    says=(cowsay cowthink)
+    RANGE=${#says[@]}
+    number=$RANDOM
+    let "number %= $RANGE"
+    command=$(type -p ${says[$number]})
+
+    text=( "$($(type -p fortune))" )
+    if $(ping -c 1 $test_host &> /dev/null) ; then
+	text[${#text[*]}]=$(echo -e `curl -s  http://fucking-great-advice.ru/api/random | \
+	awk -F	\" '{print $8}'` |sed 's/\&nbsp;/ /g')
+    fi
+    RANGE=${#text[*]}
+    number=$RANDOM
+    let "number %= $RANGE"
+    echo ${text[$number]} | $command -f $cow
+}
+
+showfortunes=`gsettings get com.linuxmint.terminal show-fortunes 2>/dev/null`
+if [ "$showfortunes" == "true" ] && [ -x "/usr/games/fortune" ] && [ -x "/usr/games/cowsay" ]; then
+    show_fortune
+fi
