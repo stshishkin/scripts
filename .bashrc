@@ -14,12 +14,18 @@ function online (){
     else
         test_host=$1
     fi
+
     while true
-         do
-             ping -c 1 $test_host &> /dev/null 2>&1
-             if [[ $? -eq 0 ]]; then
-                 echo online;
-                 break
-             fi
+        do
+            sleep 0.5
+            ping -c 1 $test_host &> /dev/null 2>&1
+            exitcode=$?
+            if [[ $exitcode -eq 0 ]]; then
+                echo online;
+                break
+            elif [[ $exitcode -gt 128 ]]; then
+                echo stop;
+                break
+            fi
         done
 }
