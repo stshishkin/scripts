@@ -18,7 +18,7 @@ function show_fortune {
     text=( "$($(type -p fortune))" )
     if $(ping -c 1 $test_host &> /dev/null) ; then
 	text[${#text[*]}]=$(echo -e `curl -s  http://fucking-great-advice.ru/api/random | \
-	awk -F	\" '{print $8}'` |sed 's/\&nbsp;/ /g')
+	jq -r ".text"`)
     fi
     RANGE=${#text[*]}
     number=$RANDOM
