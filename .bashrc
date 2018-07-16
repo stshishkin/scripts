@@ -29,7 +29,3 @@ function online (){
             fi
         done
 }
-function ripe () {
-    link="http://rest.db.ripe.net/search?source=ripe&query-string="
-    echo $(curl -s "${link}$1" | xmlstarlet sel -t -c 'string(//*[@name="netname"]/@value)')
-}
