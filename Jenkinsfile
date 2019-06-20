@@ -7,6 +7,10 @@ node {
 
 pipeline {
   agent any
+  parameters {
+    choice(name: 'Invoke_Parameters', choices: '''Yes\nNo''', description: 'Do you whish to do a dry run to grab parameters?')
+    choice(name: 'Envs', choices: "${envs}", description: '')
+  }
   stages {
     stage('parameterizing') {
       steps {
@@ -21,13 +25,8 @@ pipeline {
     }
     stage('Check') {
       steps {
-        echo "Selected env: ${params.Nodes}"
+        echo "Selected env: ${params.Envs}"
       }
     }
-  }
-  parameters {
-    choice(name: 'Invoke_Parameters', choices: '''Yes
-No''', description: 'Do you whish to do a dry run to grab parameters?')
-    choice(name: 'Envs', choices: "${envs}", description: '')
   }
 }
