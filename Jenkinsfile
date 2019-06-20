@@ -1,36 +1,32 @@
-def listEnvs() {
-    def sout = new StringBuffer(), serr = new StringBuffer()
-    def proc = 'python ${JENKINS_HOME}/files/codio_envs.py'.execute()
-    proc.consumeProcessOutput(sout, serr)
-    proc.waitForOrKill(10000)
-    return sout.tokenize() 
+def envs
+node {
+    dir('${JENKINS_HOME}/files/') {
+        Envs = sh (script: 'python codio_envs.py', returnStdout: true).trim()
+    }
 }
 
-def Envs = listEnvs().join('\n')
-
 pipeline {
+    // a declarative pipeline
     agent any
+
+    parameters {
+            choice(name: 'Invoke_Parameters', choices:"Yes\nNo", description: "Do you whish to do a dry run to grab parameters?" )
+            choice(name: 'Envs', choices:"${envs}", description: "")
+    }
     stages {
-        stage ("Init") {
-            steps { 
+        stage("parameterizing") {
+            steps {
                 script {
-                    def ENVS = listEnvs() 
-                    inputResult = input(
-                        message: "Select env",
-                        parameters: [
-                            choise (
-                                name: "envs",
-                                choices: "${ENVS}",
-                                description: "Env" 
-                                )
-                        ]
-                    )
+                    if ("${params.Invoke_Parameters}" == "Yes") {
+                        currentBuild.result = 'ABORTED'
+                        error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
+                    }
                 }
             }
         }
         stage ("Check") {
             steps {
-                echo "Selected env: ${inputResult}"
+                echo "Selected env: ${params.Nodes}"
             }
         }
     }
