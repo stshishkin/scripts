@@ -1,7 +1,7 @@
 def envs
 node {
     dir('${JENKINS_HOME}/files/') {
-        envs = sh (script: 'python codio_envs.py', returnStdout: true).trim()
+        envs = sh (script: 'python /var/jenkins_home/files/codio_envs.py', returnStdout: true).trim()
     }
 }
 
