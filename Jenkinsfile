@@ -28,5 +28,10 @@ pipeline {
         echo "Selected env: ${params.Envs}"
       }
     }
+    stage('Build') {
+      steps {
+        sh "$WORKSPACE/build.sh ${env.BRANCH_NAME}"
+      }
+    }
   }
 }
