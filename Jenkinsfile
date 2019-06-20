@@ -9,17 +9,27 @@ def listEnvs() {
 def Envs = listEnvs().join('\n')
 
 pipeline {
-    // a declarative pipeline
     agent any
-
-    parameters {
-        choice(name: 'Release',
-               choices: Envs)
-    }
     stages {
-        stage("Init") {
-            agent any
-            steps { listEnvs() }
+        stage ("Init") {
+            steps { 
+                def ENVS = listEnvs() 
+                inputResult = input(
+                    message: "Select env",
+                    parameters: [
+                        choise (
+                            name: "envs",
+                            choices: "${ENVS}",
+                            description: "Env" 
+                            )
+                    ]
+                )
+            }
+        }
+        stage ("Check") {
+            steps {
+                echo "Selected env: ${inputResult}"
+            }
         }
     }
  }
