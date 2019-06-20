@@ -13,17 +13,19 @@ pipeline {
     stages {
         stage ("Init") {
             steps { 
-                def ENVS = listEnvs() 
-                inputResult = input(
-                    message: "Select env",
-                    parameters: [
-                        choise (
-                            name: "envs",
-                            choices: "${ENVS}",
-                            description: "Env" 
-                            )
-                    ]
-                )
+                script {
+                    def ENVS = listEnvs() 
+                    inputResult = input(
+                        message: "Select env",
+                        parameters: [
+                            choise (
+                                name: "envs",
+                                choices: "${ENVS}",
+                                description: "Env" 
+                                )
+                        ]
+                    )
+                }
             }
         }
         stage ("Check") {
