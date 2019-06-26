@@ -28,9 +28,21 @@ pipeline {
         echo "Selected env: ${params.Envs}"
       }
     }
-    stage('Build') {
+    // stage('Build') {
+    //   steps {
+    //     checkout scm
+    //     sh "$WORKSPACE/build.sh ${env.GIT_COMMIT}"
+    //   }
+    // }
+    stage('Deploy'){
       steps {
-        sh "$WORKSPACE/build.sh ${env.BRANCH_NAME}"
+        ansibleAdHoc ('ping') {
+          inventoryPath('files/ec2.py')
+          tags('test2')
+          credentialsId('credsid')
+          become(true)
+          becomeUser("user")
+        }
       }
     }
   }
