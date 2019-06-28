@@ -1,7 +1,7 @@
 def envs
 node {
     dir('${JENKINS_HOME}/files/') {
-        envs = sh (script: 'python /var/jenkins_home/files/codio_envs.py', returnStdout: true).trim()
+        envs = sh (script: 'python /var/jenkins_home/files/ec2.py | grep -Po \'(?<="tag_Environment_).*(?=":)\'', returnStdout: true).trim()
     }
 }
 
@@ -36,7 +36,7 @@ pipeline {
     // }
     stage('Deploy'){
       steps {
-        ansibleAdHoc ('ping') {
+        ansiblePlaybook ('ping') {
           inventoryPath('files/ec2.py')
           tags('test2')
           credentialsId('credsid')
