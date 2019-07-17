@@ -6,7 +6,7 @@ def data = [
       "worker1.int.codio.com",
       "worker2.int.codio.com"
     ],
-    redis_host: "redis.int.codio.com",
+    redis_host: "redis.int.codio.com"
   ],
   production_eu: [
     rabbitmq_host: "rabbitmq.int.codio.co.uk",
@@ -14,28 +14,28 @@ def data = [
       "worker1.int.codio.co.uk",
       "worker2.int.codio.co.uk"
     ],
-    redis_host: "redis.int.codio.co.uk",
+    redis_host: "redis.int.codio.co.uk"
   ],
   test1: [
     rabbitmq_host: "rabbitmq-${params.Envs}.int.codio.com",
     rabbitmq_nodes: [
       "rabbitmq-${params.Envs}.int.codio.com"
     ],
-    redis_host: "redis-${params.Envs}.int.codio.com",
+    redis_host: "redis-${params.Envs}.int.codio.com"
   ],
   test2: [
     rabbitmq_host: "rabbitmq-${params.Envs}.int.codio.com",
     rabbitmq_nodes: [
       "rabbitmq-${params.Envs}.int.codio.com"
     ],
-    redis_host: "redis-${params.Envs}.int.codio.com",,
+    redis_host: "redis-${params.Envs}.int.codio.com"
   ],
   staging: [
     rabbitmq_host: "rabbitmq-${params.Envs}.int.codio.com",
     rabbitmq_nodes: [
       "worker21-staging.int.codio.com"
     ],
-    redis_host: "redis-${params.Envs}.int.codio.com",
+    redis_host: "redis-${params.Envs}.int.codio.com"
   ]
 ]
 
