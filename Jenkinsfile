@@ -78,8 +78,8 @@ pipeline {
       steps {
         ansiblePlaybook (
           playbook: "$WORKSPACE/deploy.yml",
-          inventoryPath: 'files/ec2.py',
-          tags: 'test2',
+          inventory: 'files/ec2.py',
+          limit: "tag_Environment_${params.Envs}",
           credentialsId: 'credsid',
           extraVars: [
             rabbitmq_host: "${data[${params.Envs}].rabbitmq_host}",
