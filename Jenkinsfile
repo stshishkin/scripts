@@ -71,7 +71,7 @@ pipeline {
     stage('Build') {
       steps {
         checkout scm
-        sh "$WORKSPACE/build.sh ${env.GIT_COMMIT}"
+        // sh "$WORKSPACE/build.sh ${env.GIT_COMMIT}"
       }
     }
     stage('Deploy'){
