@@ -76,23 +76,22 @@ pipeline {
     }
     stage('Deploy'){
       steps {
-        ansiblePlaybook ("$WORKSPACE/deploy.yml") {
-          inventoryPath('files/ec2.py')
-          tags('test2')
-          credentialsId('credsid')
-          extraVars {
-            extraVar('rabbitmq_host',"${data[${params.Envs}].rabbitmq_host}",false)
-            extraVar('rabbitmq_nodes',"[${data[${params.Envs}].rabbitmq_nodes}]",false) // check
-            extraVar('rabbitmq_port',"${rabbitmq_port}",false)
-            extraVar('rabbitmq_username',"${rabbitmq_port}",false)
-            extraVar('rabbitmq_password',"${rabbitmq_port}",false)
-
-            extraVar('redis_host',"${data[${params.Envs}].redis_host}",false)
-            extraVar('redis_port',"${redis_port}",false)
-
-            extraVar('hyperion_type',"${hyperion_type}",false)
-          }
-
+        ansiblePlaybook (
+          playbook: "$WORKSPACE/deploy.yml",
+          inventoryPath: 'files/ec2.py',
+          tags: 'test2',
+          credentialsId: 'credsid',
+          extraVars: [
+            rabbitmq_host: "${data[${params.Envs}].rabbitmq_host}",
+            rabbitmq_nodes: "[${data[${params.Envs}].rabbitmq_nodes}]",
+            rabbitmq_port: "${rabbitmq_port}",
+            rabbitmq_username: "${rabbitmq_port}",
+            rabbitmq_password: "${rabbitmq_port}",
+            redis_host: "${data[${params.Envs}].redis_host}",
+            redis_port: "${redis_port}",
+            hyperion_type: "${hyperion_type}"
+          ]
+        )
         }
       }
     }
