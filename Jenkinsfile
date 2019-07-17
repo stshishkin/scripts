@@ -92,7 +92,6 @@ pipeline {
             hyperion_type: "${hyperion_type}"
           ]
         )
-        }
       }
     }
   }
