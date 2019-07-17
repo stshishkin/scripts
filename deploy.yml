@@ -1,0 +1,29 @@
+---
+- hosts: container
+  vars: 
+    application: "hyperion"
+    build_path: "/var/build/{{ application }}"
+    release_path: "{{ build_path }}/builds/{{ ansible_date_time.epoch }}"
+  sudo: yes
+  tasks:
+  - name: configure
+    template:
+      src: app.conf.erb
+      dest: "#{release_path}/config/app.conf"
+      mode: 775
+    template:
+      src: logback.xml.erb
+      dest: "#{release_path}/config/logback.xml"
+      mode: 775
+    file:
+      path: "#{shared_path}/logs"
+      state: directory
+      mode: 777
+  - name: publish
+    copy:
+      src:
+      dest:
+  - name: restart service
+    service:
+      name: hyperion
+      state: restarted
