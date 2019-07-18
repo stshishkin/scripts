@@ -82,12 +82,12 @@ pipeline {
           limit: "tag_Environment_${params.Envs}",
           credentialsId: 'credsid',
           extraVars: [
-            rabbitmq_host: ${data[${params.Envs}].rabbitmq_host},
-            rabbitmq_nodes: [${data[${params.Envs}].rabbitmq_nodes}],
+            rabbitmq_host: data[${params.Envs}].rabbitmq_host,
+            rabbitmq_nodes: [data[${params.Envs}].rabbitmq_nodes],
             rabbitmq_port: "${rabbitmq_port}",
             rabbitmq_username: "${rabbitmq_port}",
             rabbitmq_password: "${rabbitmq_port}",
-            redis_host: ${data[${params.Envs}].redis_host},
+            redis_host: data[${params.Envs}].redis_host,
             redis_port: "${redis_port}",
             hyperion_type: "${hyperion_type}"
           ]
