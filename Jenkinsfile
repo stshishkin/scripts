@@ -77,7 +77,9 @@ pipeline {
     }
     stage('Deploy'){
       steps {
-        currentEnv = data."${params.Envs}"
+        script {
+          currentEnv = data."${params.Envs}"
+        }
         ansiblePlaybook (
           playbook: "$WORKSPACE/deploy.yml",
           inventory: 'files/ec2.py',
