@@ -81,12 +81,12 @@ pipeline {
         script {
           currentEnv = data."${params.Envs}"
         }
-        ansiblePlaybook (
-          playbook: "$WORKSPACE/deploy.yml",
-          inventory: 'files/ec2.py',
-          limit: "tag_Environment_${params.Envs}",
-          credentialsId: 'credsid',
-          extraVars: [
+        // ansiblePlaybook (
+        //   playbook: "$WORKSPACE/deploy.yml",
+        //   inventory: 'files/ec2.py',
+        //   limit: "tag_Environment_${params.Envs}",
+        //   credentialsId: 'credsid',
+        //   extraVars: [
             echo "rabbitmq_host: ${currentEnv.rabbitmq_host}",
             echo "rabbitmq_nodes: ${currentEnv.rabbitmq_nodes}",
             echo "rabbitmq_port: ${rabbitmq_port}",
@@ -95,8 +95,8 @@ pipeline {
             echo "redis_host: ${currentEnv.redis_host}",
             echo "redis_port: ${rabbitmq_port}",
             echo "hyperion_type: ${rabbitmq_port}"
-          ]
-        )
+        //   ]
+        // )
       }
     }
   }
