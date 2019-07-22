@@ -1,5 +1,6 @@
 def envs
 def currentEnv
+def rabbitmq_port = 1324
 def data = [
   production: [
     rabbitmq_host: "rabbitmq.int.codio.com",
@@ -86,14 +87,14 @@ pipeline {
           limit: "tag_Environment_${params.Envs}",
           credentialsId: 'credsid',
           extraVars: [
-            rabbitmq_host: "${currentEnv.rabbitmq_host}",
-            rabbitmq_nodes: "${currentEnv.rabbitmq_nodes}",
-            rabbitmq_port: "${rabbitmq_port}",
-            rabbitmq_username: "${rabbitmq_port}",
-            rabbitmq_password: "${rabbitmq_port}",
-            redis_host: "${currentEnv.redis_host}",
-            redis_port: "${redis_port}",
-            hyperion_type: "${hyperion_type}"
+            echo "rabbitmq_host: ${currentEnv.rabbitmq_host}",
+            echo "rabbitmq_nodes: ${currentEnv.rabbitmq_nodes}",
+            echo "rabbitmq_port: ${rabbitmq_port}",
+            echo "rabbitmq_username: ${rabbitmq_port}",
+            echo "rabbitmq_password: ${rabbitmq_port}",
+            echo "redis_host: ${currentEnv.redis_host}",
+            echo "redis_port: ${rabbitmq_port}",
+            echo "hyperion_type: ${rabbitmq_port}"
           ]
         )
       }
