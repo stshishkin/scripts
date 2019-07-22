@@ -1,4 +1,5 @@
 def envs
+def currentEnv
 def data = [
   production: [
     rabbitmq_host: "rabbitmq.int.codio.com",
@@ -75,7 +76,7 @@ pipeline {
       }
     }
     stage('Deploy'){
-      def currentEnv = data."${params.Envs}"
+      currentEnv = data."${params.Envs}"
       steps {
         ansiblePlaybook (
           playbook: "$WORKSPACE/deploy.yml",
