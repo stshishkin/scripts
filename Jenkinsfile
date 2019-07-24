@@ -61,6 +61,7 @@ pipeline {
             currentBuild.result = 'ABORTED'
             error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
           }
+          currentEnv = data."${params.Envs}"
         }
       }
     }
